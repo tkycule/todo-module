@@ -1,0 +1,8 @@
+%h1 ログイン
+
+.well
+  =simple_form_for @user, url: sessions_path do |f|
+    =f.input :email
+    =f.input :password, required: true
+    =f.submit "Login", class: "btn btn-primary btn-block"
+
