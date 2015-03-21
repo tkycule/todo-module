@@ -1,0 +1,16 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      task: タスク
+
+ja:
+  activerecord:
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード(確認)
+      task:
+        title: タイトル
+        memo: メモ
