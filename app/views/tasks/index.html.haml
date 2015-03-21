@@ -1,27 +1,42 @@
-%h1 Listing tasks
+.row
+  #sidebar.col-sm-2
+    %h3 収集
+    %ul.list-unstyled
+      =nav_link tasks_path, class: "clearfix" do
+        .pull-left 
+          %i.glyphicon.glyphicon-inbox
+          収集箱
+        .pull-right.inbox-count=@inbox_count
+    %h3 終了 
+    %ul.list-unstyled
+      =nav_link completed_tasks_path, class: "clearfix" do
+        .pull-left
+          %i.glyphicon.glyphicon-ok-sign
+          完了
+        .pull-right.completed-count=@completed_count
+      =nav_link deleted_tasks_path, class: "clearfix" do
+        .pull-left
+          %i.glyphicon.glyphicon-trash
+          ゴミ箱
+        .pull-right.deleted-count=@deleted_count
 
-%table
-  %thead
-    %tr
-      %th User
-      %th Title
-      %th Memo
-      %th Aasm state
-      %th
-      %th
-      %th
-      
-  %tbody
-    - @tasks.each do |task|
-      %tr
-        %td= task.user
-        %td= task.title
-        %td= task.memo
-        %td= task.aasm_state
-        %td= link_to 'Show', task
-        %td= link_to 'Edit', edit_task_path(task)
-        %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
+  .col-sm-10
+    =form_for @new_task do |f|
+      .input-group
+        =f.text_field :title, class: "form-control", placeholder: "タスク"
+        %span.input-group-btn
+          =f.submit "登録", class: "btn btn-success"
 
-= link_to 'New Task', new_task_path
+    %ul#tasks.list-unstyled
+      -@tasks.each do |task|
+        =content_tag_for(:li, task, class: "clearfix") do
+          .pull-left
+            =link_to task.title, edit_task_path(task)
+          .pull-right
+            -if task.inbox?
+              =link_to "完了", complete_task_path(task), method: "patch", class: "task-complete btn btn-primary"
+            -unless task.inbox?
+              =link_to "戻す", revert_task_path(task), method: "patch", class: "task-revert btn btn-default"
+            -unless task.deleted?
+              =link_to "削除", task_path(task), method: "delete", class: "task-delete btn btn-danger"
