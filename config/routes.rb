@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
 
-  get 'sessions/new'
-  get 'sessions/create'
-  get 'sessions/destroy'
+  root "sessions#new"
+
+  resources :users, only: [:new, :create, :edit, :update]
+
+  resources :sessions, only: [:new, :create, :destroy]
+  get 'login' => 'sessions#new', :as => :login
+  match 'logout' => 'sessions#destroy', :as => :logout, :via => [:get, :post]
 
   resources :tasks
 
