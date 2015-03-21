@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby "2.2.1"
+
 gem 'rails', '4.2.0'
 
 gem 'mysql2', '0.3.18'
@@ -50,3 +52,7 @@ group :development do
 	gem 'pry-byebug'
 end
 
+group :production do
+  gem 'pg', '0.15.1'
+  gem 'rails_12factor', '0.0.2'
+end
