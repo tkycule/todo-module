@@ -2,25 +2,66 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, :type => :controller do
 
-  describe "GET new" do
-    it "returns http success" do
+  describe "GET #new" do
+    it "新しいUserを@userにセット" do
       get :new
-      expect(response).to have_http_status(:success)
+      expect(assigns(:user)).to be_a_new(User)
+    end
+
+    it ":newテンプレートを表示" do
+      get :new
+      expect(response).to render_template :new
     end
   end
 
-  describe "GET create" do
-    it "returns http success" do
-      get :create
-      expect(response).to have_http_status(:success)
+  describe "POST #create" do
+    context "パラメータが正しい時" do
+
+      let(:user) { create(:user, password: "password") }
+
+      before do
+        post :create, user: {email: user.email, password: "password"}
+      end
+
+      it "タスク一覧にリダイレクト" do
+        expect(response).to redirect_to tasks_path
+      end
+
+      it "メッセージをセット" do
+        expect(flash[:notice]).to eq "ログインしました。" 
+      end 
+    end
+
+    context "パラメータが正しくない時" do
+      
+      before do
+        post :create, user: {}
+      end
+
+      it ":newテンプレートを表示" do
+        expect(response).to render_template :new
+      end
+
+      it "メッセージをセット" do
+        expect(flash.now[:alert]).to eq "ログインに失敗しました。" 
+      end 
     end
   end
 
-  describe "GET destroy" do
-    it "returns http success" do
-      get :destroy
-      expect(response).to have_http_status(:success)
+  describe "DELETE #destroy" do
+    
+    before do
+      login_user(create(:user))
+      delete :destroy
     end
+
+    it "トップページにリダイレクト" do
+      expect(response).to redirect_to root_path
+    end
+
+    it "メッセージをセット" do
+      expect(flash[:notice]).to eq "ログアウトしました。" 
+    end 
   end
 
 end
