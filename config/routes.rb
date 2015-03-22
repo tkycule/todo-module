@@ -19,9 +19,17 @@ Rails.application.routes.draw do
     end
   end
 
-  api_version(:module => "V1", :path => {:value => "v1"}) do
-    resources :sessions
-    resources :users
+  api_version(:module => "V1", :path => {:value => "v1"}, :defaults => {:format => "json"}) do
+
+    resources :users, only: [:create]
+    resources :sessions, only: [:create]
+
+    resources :tasks, only: [:index, :create, :show, :update, :destroy] do
+      member do
+        match "complete", via: [:patch, :put]
+        match "revert", via: [:patch, :put]
+      end
+    end
   end
 
 end
