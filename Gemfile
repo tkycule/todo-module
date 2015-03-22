@@ -22,6 +22,7 @@ gem 'autoprefixer-rails', '5.1.6'
 gem 'haml-rails', '0.8.2'
 
 gem 'jbuilder', '2.2.7'
+gem 'versionist', '1.4.0'
 
 gem 'quiet_assets', '1.1.0'
 

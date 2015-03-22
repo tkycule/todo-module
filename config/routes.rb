@@ -19,4 +19,8 @@ Rails.application.routes.draw do
     end
   end
 
+  api_version(:module => "V1", :path => {:value => "v1"}) do
+    resources :users
+  end
+
 end

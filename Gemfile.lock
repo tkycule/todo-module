@@ -305,12 +305,17 @@ GEM
       json (>= 1.8.0)
     validates_email_format_of (1.6.2)
       i18n
+    versionist (1.4.0)
+      activesupport (>= 3)
+      railties (>= 3)
+      yard (~> 0.7)
     websocket (1.2.1)
     websocket-driver (0.5.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    yard (0.8.7.6)
 
 PLATFORMS
   ruby
@@ -353,3 +358,4 @@ DEPENDENCIES
   therubyracer (= 0.12.1)
   uglifier (= 2.7.0)
   validates_email_format_of (= 1.6.2)
+  versionist (= 1.4.0)
