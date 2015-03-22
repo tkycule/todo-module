@@ -23,6 +23,7 @@ gem 'haml-rails', '0.8.2'
 
 gem 'jbuilder', '2.2.7'
 gem 'versionist', '1.4.0'
+gem 'rack-cors', '0.3.1', :require => 'rack/cors'
 
 gem 'quiet_assets', '1.1.0'
 
