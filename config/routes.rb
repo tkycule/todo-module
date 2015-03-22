@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   end
 
   api_version(:module => "V1", :path => {:value => "v1"}) do
+    resources :sessions
     resources :users
   end
 
