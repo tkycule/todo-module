@@ -1,6 +1,7 @@
 class V1::UsersController < V1::BaseController
 
   skip_before_filter :require_login, only: [:create]
+  wrap_parameters include: [:email, :password, :password_confirmation]
 
   def create
     @user = User.new(user_params)
